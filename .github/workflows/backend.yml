@@ -44,4 +44,6 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lenka-messenger -Dsonar.projectName='lenka-messenger'
+        run: |
+          cd backend
+          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lenka-messenger -Dsonar.projectName='lenka-messenger'
