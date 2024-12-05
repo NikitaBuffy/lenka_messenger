@@ -47,5 +47,5 @@ jobs:
         run: |
           cd backend
           mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \ 
-          -Dsonar.projectKey=NikitaBuffy_lenka-messenger_379379e1-5d66-46a0-9dc0-5f76da891e34 \
+          -Dsonar.projectKey=hello \
           -Dsonar.projectName='lenka-messenger'
