@@ -8,6 +8,7 @@ public class LenkaMessengerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LenkaMessengerApplication.class, args);
+		System.out.println("Hello");
 	}
 
 }
