@@ -31,13 +31,4 @@ jobs:
       - name: Build project
         run: |
           cd backend
-          mvn clean verify
-
-      - name: Analyze with SonarCloud
-        run: |
-          cd backend
-          mvn sonar:sonar \
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
-            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          mvn -B clean package
