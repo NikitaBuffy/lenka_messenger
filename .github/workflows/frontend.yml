@@ -48,6 +48,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
         run: |
           cd frontend
-          npx sonar-scanner -Dsonar.projectKey=NikitaBuffy_lenka-messenger_2c716e46-ed88-4385-b66c-97e4f1653f48 -Dsonar.projectName='lenka-messenger' -Dsonar.sources=src -Dsonar.pullrequest.key=${{ github.event.number}} -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }} -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }} -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }}
+          npx sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.projectName='lenka-messenger' -Dsonar.sources=src -Dsonar.pullrequest.key=${{ github.event.number}} -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }} -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }} -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }}
