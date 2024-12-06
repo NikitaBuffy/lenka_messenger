@@ -1,0 +1,23 @@
+name: Restrict PR to Main
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  restrict-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check source branch
+        run: |
+          echo "Checking source branch..."
+          ALLOWED_BRANCHES=("backend" "frontend" "devops")
+          SOURCE_BRANCH=$(echo "${{ github.event.pull_request.head.ref }}")
+          
+          if [[ ! " ${ALLOWED_BRANCHES[@]} " =~ " ${SOURCE_BRANCH} " ]]; then
+            echo "Pull Request from branch '${SOURCE_BRANCH}' to 'main' is not allowed!"
+            exit 1
+          else
+            echo "Pull Request from '${SOURCE_BRANCH}' is allowed."
+          fi
