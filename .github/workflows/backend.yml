@@ -31,4 +31,19 @@ jobs:
       - name: Build project
         run: |
           cd backend
-          mvn -B clean package
+          mvn clean verify
+
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Analyze with SonarQube
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: |
+          cd backend
+          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=NikitaBuffy_lenka-messenger_2c716e46-ed88-4385-b66c-97e4f1653f48 -Dsonar.projectName='lenka-messenger' -Dsonar.pullrequest.key=${{ github.event.number}} -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }} -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }} -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }}
