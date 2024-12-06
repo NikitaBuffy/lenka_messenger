@@ -28,10 +28,14 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd frontend
+          npm install
 
       - name: Build frontend
-        run: npm run build
+        run: |
+          cd frontend
+          npm run build
 
       - name: Cache SonarQube packages
         uses: actions/cache@v4
