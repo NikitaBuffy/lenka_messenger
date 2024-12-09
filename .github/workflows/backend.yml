@@ -48,3 +48,18 @@ jobs:
         run: |
           cd backend
           mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.projectName='lenka-messenger' -Dsonar.pullrequest.key=${{ github.event.number}} -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }} -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }} -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }}
+
+      - name: Build backend Docker image
+        run: |
+          cd backend
+          docker build -t nickpominov/lm-backend:latest
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ DOCKER_USERNAME }}
+          password: ${{ DOCKER_PASSWORD }}
+
+      - name: Push backend image to Docker Hub
+        run: |
+          docker push nickpominov/lm-backend:latest
