@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  lm-backend:
+    image: nickpominov/lm-backend:latest
+    container_name: lm-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/lenkamessenger
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  lm-frontend:
+    image: nickpominov/lm-frontend:latest
+    container_name: lm-frontend
+    ports:
+      - "3000:80"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:14-alpine
+    container_name: postgres
+    ports:
+      - "6551:5432"
+    volumes:
+      - /srv/postgresql-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=lenkamessenger
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - TZ=GMT
+    networks:
+      - app-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5050:80"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

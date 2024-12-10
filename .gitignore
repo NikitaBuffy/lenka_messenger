@@ -21,3 +21,6 @@
 
 # Logs
 /logs/
+
+# Environment
+.env
