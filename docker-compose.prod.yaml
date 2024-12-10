@@ -2,10 +2,8 @@ version: '3.9'
 
 services:
   lm-backend:
-    build:
-      context: ./backend
+    image: nickpominov/lm-backend:latest
     container_name: lm-backend
-    image: lm-backend:latest
     ports:
       - "8080:8080"
     depends_on:
@@ -19,12 +17,10 @@ services:
     restart: unless-stopped
 
   lm-frontend:
-    build:
-      context: ./frontend
+    image: nickpominov/lm-frontend:latest
     container_name: lm-frontend
-    image: lm-frontend:latest
     ports:
-      - "80:80"
+      - "3000:80"
     networks:
       - app-network
     restart: unless-stopped
