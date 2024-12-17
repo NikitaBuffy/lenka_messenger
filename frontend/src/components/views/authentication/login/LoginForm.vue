@@ -6,15 +6,29 @@ import LabeledTextInput from "@src/components/ui/inputs/LabeledTextInput.vue";
 import PasswordInput from "@src/components/ui/inputs/PasswordInput.vue";
 
 const password = ref("");
+const login = ref("");
+const errorMessage = ref("");
+
+const handleLogin = () => {
+  if (!password.value || !login.value) {
+    errorMessage.value = "Пожалуйста, заполните все поля!";
+  } else {
+    errorMessage.value = "";
+  }
+}
+
+const clearError = () => {
+  errorMessage.value = "";
+}
 </script>
 
 <template>
   <div class="p-5 md:basis-1/3 xs:basis-full flex flex-col justify-center items-center">
     <div class="w-full md:px-[10%] xs:px-[10%]">
       <!--header-->
-      <div class="mb-7 flex flex-col">
+      <div class="mb-8 flex flex-col">
         <img
-          src="../../../../assets/images/logo/white-logo.png"
+          src="@src/assets/images/logo/white-logo.png"
           class="w-[1.775rem] h-[1.725rem] mb-4"
           alt="lenka messenger logo"
         />
@@ -25,23 +39,34 @@ const password = ref("");
       </div>
 
       <!--form-->
-      <div class="mb-6">
-        <LabeledTextInput label="Логин" placeholder="Введите свой логин" class="mb-5"/>
+      <div :class="errorMessage ? 'mb-5' : 'mb-8' ">
+        <LabeledTextInput
+          @value-changed="(value) => { login = value }"
+          @input="clearError"
+          :value="login"
+          label="Логин"
+          placeholder="Введите свой логин"
+          class="mb-5"
+        />
         <PasswordInput
-          @value-changed="
-            (value) => {
-              password = value;
-            }
-          "
+          @value-changed="(value) => { password = value }"
+          @input="clearError"
           :value="password"
           label="Пароль"
           placeholder="Введите свой пароль"
         />
+
+        <!-- error message -->
+        <div v-if="errorMessage" class="mt-3 text-red-500 body-2 text-xs">
+          {{ errorMessage }}
+        </div>
       </div>
 
       <!--auth button-->
       <div class="mb-6">
-        <Button class="contained-primary contained-text w-full mb-4" link to="/">Войти</Button>
+        <Button class="contained-primary contained-text w-full mb-4" @click="handleLogin" link to="/">
+          Войти
+        </Button>
       </div>
 
       <!--register-->
