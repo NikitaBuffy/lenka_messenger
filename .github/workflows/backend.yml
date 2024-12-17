@@ -1,4 +1,4 @@
-name: Java CI
+name: Backend CI
 
 on:
   pull_request:
@@ -32,12 +32,6 @@ jobs:
         run: |
           cd backend
           mvn clean verify
-
-      - name: Upload backend build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: backend-jar
-          path: /backend/target/*.jar
 
       - name: Cache SonarQube packages
         uses: actions/cache@v4
