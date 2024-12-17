@@ -71,11 +71,15 @@
   }
 
   .outlined-text {
-    @apply text-sm font-semibold leading-4 tracking-[.01rem] text-black text-opacity-70 dark:text-white hover:text-white focus:text-white;
+    @apply text-sm font-semibold leading-4 tracking-[.01rem] text-black text-opacity-70 dark:text-white;
   }
 
   .ghost-text {
     @apply text-sm font-light leading-4 tracking-[.01rem] text-black text-opacity-70 dark:text-white dark:hover:text-white;
+  }
+
+  .input-error-text {
+    @apply mt-3 text-red-500 text-xs;
   }
 
 
@@ -98,8 +102,8 @@
   }
 
   .outlined-primary {
-   @apply bg-opacity-0 hover:bg-indigo-300 focus:bg-indigo-300 dark:hover:bg-indigo-400 dark:focus:bg-indigo-400
-   border border-gray-100  dark:border-gray-600 hover:border-indigo-300 dark:hover:border-indigo-400 focus:border-indigo-300 dark:focus:border-indigo-400;
+   @apply bg-opacity-0 hover:bg-gray-100 dark:hover:bg-indigo-400 dark:focus:bg-indigo-400
+   border border-gray-100 dark:border-gray-600 hover:border-gray-200 dark:hover:border-indigo-400 dark:focus:border-indigo-400;
   }
 
   .outlined-success {
@@ -178,12 +182,15 @@
 
  .bordered-input {
   @apply border border-gray-200 bg-gray-50 dark:bg-gray-700
-   dark:focus:bg-opacity-0 focus:bg-opacity-0 focus:border-indigo-300
-  dark:border-gray-600;
+   dark:focus:bg-opacity-0 focus:bg-opacity-0 focus:border-indigo-300 dark:border-gray-600;
  }
 
  .ringed-input {
   @apply bg-gray-50 border-0 dark:bg-gray-700 focus:ring focus:ring-indigo-100 dark:focus:bg-opacity-0 focus:bg-opacity-0;
+ }
+
+ .error-input {
+   @apply border border-red-500 focus:ring-red-200 bg-red-100;
  }
 
  /* DropdownLink */

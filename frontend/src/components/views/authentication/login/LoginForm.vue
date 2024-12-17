@@ -11,7 +11,7 @@ const errorMessage = ref("");
 
 const handleLogin = () => {
   if (!password.value || !login.value) {
-    errorMessage.value = "Пожалуйста, заполните все поля!";
+    errorMessage.value = "Пожалуйста, заполните все поля";
   } else {
     errorMessage.value = "";
   }
@@ -57,7 +57,7 @@ const clearError = () => {
         />
 
         <!-- error message -->
-        <div v-if="errorMessage" class="mt-3 text-red-500 body-2 text-xs">
+        <div v-if="errorMessage" class="body-2 input-error-text">
           {{ errorMessage }}
         </div>
       </div>

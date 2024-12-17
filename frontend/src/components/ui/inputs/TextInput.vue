@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const emit = defineEmits(["valueChanged"]);
+const emit = defineEmits(["valueChanged", "blur"]);
 
 const props = defineProps<{
   id?: string;

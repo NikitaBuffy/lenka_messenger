@@ -5,7 +5,7 @@ import LabeledTextInput from "@src/components/ui/inputs/LabeledTextInput.vue";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/vue/24/outline";
 import IconButton from "@src/components/ui/inputs/IconButton.vue";
 
-defineEmits(["valueChanged"]);
+defineEmits(["valueChanged", "blur"]);
 
 const props = defineProps<{
   id?: string;

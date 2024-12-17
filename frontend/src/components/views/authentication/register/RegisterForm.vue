@@ -9,8 +9,15 @@ import { RouterLink } from "vue-router";
 defineEmits(["activeSectionChange"]);
 
 const activeSectionName = ref("personal-section");
-
 const animation = ref("slide-left");
+
+const regData = ref({
+  email: "",
+  username: "",
+  password: "",
+  firstName: "",
+  lastName: "",
+});
 
 const ActiveSection = computed((): any => {
   if (activeSectionName.value === "personal-section") {
@@ -33,7 +40,7 @@ const changeActiveSection = (event: {
   <div class="p-5 md:basis-1/3 xs:basis-full flex flex-col justify-center items-center">
     <div class="w-full md:px-[10%] xs:px-[10%]">
       <!--header-->
-      <div class="mb-7 flex flex-col">
+      <div class="mb-8 flex flex-col">
         <img
           src="@src/assets/images/logo/white-logo.png"
           class="w-[1.775rem] h-[1.725rem] mb-4"
@@ -50,6 +57,7 @@ const changeActiveSection = (event: {
         <component
           @active-section-change="changeActiveSection"
           :is="ActiveSection"
+          :reg-data="regData"
         />
       </SlideTransition>
 

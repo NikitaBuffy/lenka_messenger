@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TextInput from "@src/components/ui/inputs/TextInput.vue";
 
-defineEmits(["valueChanged"]);
+defineEmits(["valueChanged", "blur"]);
 
 const props = defineProps<{
   id?: string;
