@@ -15,7 +15,7 @@ import type {
 
 const useStore = defineStore("chat", () => {
   // local storage
-  const storage = JSON.parse(localStorage.getItem("chat") || "{}");
+  const storage = JSON.parse(localStorage.getItem("chat") ?? "{}");
 
   // app status refs
   const status = ref("idle");

@@ -1032,7 +1032,7 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export const fetchData = async () => {
   await delay(2000);
 
-  return await {
+  return {
     data: {
       user: user,
       conversations: conversations,
@@ -1045,7 +1045,7 @@ export const fetchData = async () => {
 export const updateAccount = async () => {
   await delay(4000);
 
-  return await {
+  return {
     data: {
       detail: "Your account has been updated successfully",
     },

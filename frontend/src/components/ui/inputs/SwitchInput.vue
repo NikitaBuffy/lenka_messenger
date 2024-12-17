@@ -20,7 +20,7 @@ const handleToggleSwitchOnEnter = (event: KeyboardEvent) => {
   <!--switch-->
   <div
     role="switch"
-    :aria-checked="!!props.value"
+    :aria-checked="props.value"
     :aria-label="'Switch ' + (props.value ? 'checked' : 'not checked')"
     class="relative flex select-none outline-none transition-all duration-200 ease-in"
     tabindex="0"
