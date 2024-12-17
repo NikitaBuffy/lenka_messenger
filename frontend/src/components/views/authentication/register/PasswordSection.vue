@@ -73,7 +73,6 @@ const handleConfirmPasswordBlur = () => {
       <Button
         class="outlined-primary outlined-text w-full"
         @click="
-          console.log(regData),
           $emit('active-section-change', {
             sectionName: 'personal-section',
             animationName: 'slide-right',
