@@ -1,4 +1,4 @@
-package ru.pominov.lenka_messenger;
+package ru.pominov.lenkamessenger;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -12,6 +12,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/lenkamessenger
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - SIGNING_TOKEN=${SIGNING_TOKEN}
     networks:
       - app-network
     restart: unless-stopped
