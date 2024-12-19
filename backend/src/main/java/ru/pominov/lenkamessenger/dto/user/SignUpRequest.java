@@ -8,6 +8,8 @@ import java.util.Objects;
 
 public class SignUpRequest {
 
+    public SignUpRequest() {}
+
     public SignUpRequest(String username, String password, String email, String firstName, String lastName) {
         this.username = username;
         this.password = password;
