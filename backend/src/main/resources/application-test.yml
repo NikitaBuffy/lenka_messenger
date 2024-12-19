@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+token:
+  signing:
+    key: 5bccab9f98efe3213906d638b520662aa6280978ff3d639fbd78b81f51355d1a
