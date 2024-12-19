@@ -1,11 +1,10 @@
 package ru.pominov.lenkamessenger.controller.auth;
 
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import ru.pominov.lenkamessenger.dto.user.JwtAuthenticationResponse;
+import ru.pominov.lenkamessenger.dto.user.SignInRequest;
 import ru.pominov.lenkamessenger.dto.user.SignUpRequest;
 import ru.pominov.lenkamessenger.service.auth.AuthenticationService;
 
@@ -20,7 +19,13 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpRequest request) {
         return authenticationService.signUp(request);
+    }
+
+    @PostMapping("/login")
+    public JwtAuthenticationResponse singIn(@RequestBody @Valid SignInRequest request) {
+        return authenticationService.signIn(request);
     }
 }
