@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class ExceptionsHandler {
 
-    private final static Logger log = LoggerFactory.getLogger(ExceptionsHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(ExceptionsHandler.class);
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
