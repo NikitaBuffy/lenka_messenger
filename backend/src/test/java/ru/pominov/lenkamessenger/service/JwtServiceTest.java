@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestPropertySource(properties = {"token.signing.key=SWD1mQ+vpshov3M63EIe6d8Thyf0AJ1toqSR32wZpPo="})
-public class JwtServiceTest {
+class JwtServiceTest {
 
     @Autowired
     private JwtService jwtService;
@@ -20,7 +20,7 @@ public class JwtServiceTest {
     User user = new User(1L, "testuser123", "password123", "test@test.ru", "John", "Doe", Role.ROLE_USER);
 
     @Test
-    public void shouldGenerateAndCheckToken() {
+    void shouldGenerateAndCheckToken() {
         String token = jwtService.generateToken(user);
 
         assertNotNull(token);

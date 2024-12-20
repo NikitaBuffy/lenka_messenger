@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AuthControllerIntegrationTest {
+class AuthControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -29,7 +29,7 @@ public class AuthControllerIntegrationTest {
     SignInRequest signInRequest = new SignInRequest("loginuser", "password123");
 
     @Test
-    public void signUp_shouldRegisterSuccessfully() throws Exception {
+    void signUp_shouldRegisterSuccessfully() throws Exception {
         mockMvc.perform(post("/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(signUpRequest)))
@@ -38,7 +38,7 @@ public class AuthControllerIntegrationTest {
     }
 
     @Test
-    public void signUp_shouldReturnBadRequestWhenPasswordIsShorterThan8() throws Exception {
+    void signUp_shouldReturnBadRequestWhenPasswordIsShorterThan8() throws Exception {
         signUpRequest.setPassword("123");
         mockMvc.perform(post("/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -47,7 +47,7 @@ public class AuthControllerIntegrationTest {
     }
 
     @Test
-    public void signUp_shouldReturnBadRequestWhenUsernameIsNotUnique() throws Exception {
+    void signUp_shouldReturnBadRequestWhenUsernameIsNotUnique() throws Exception {
         signUpRequest.setUsername("uniqueusername");
         signUpRequest.setEmail("unique@super.ru");
         mockMvc.perform(post("/auth/register")
@@ -64,7 +64,7 @@ public class AuthControllerIntegrationTest {
     }
 
     @Test
-    public void signUp_shouldReturnBadRequestWhenEmailIsNotUnique() throws Exception {
+    void signUp_shouldReturnBadRequestWhenEmailIsNotUnique() throws Exception {
         signUpRequest.setUsername("iambot");
         signUpRequest.setEmail("botornot@quiz.ru");
         mockMvc.perform(post("/auth/register")
@@ -82,7 +82,7 @@ public class AuthControllerIntegrationTest {
     }
 
     @Test
-    public void signIn_shouldLoginSuccessfully() throws Exception {
+    void signIn_shouldLoginSuccessfully() throws Exception {
         signUpRequest.setUsername("loginuser");
         signUpRequest.setEmail("login@user.ru");
 
@@ -100,7 +100,7 @@ public class AuthControllerIntegrationTest {
     }
 
     @Test
-    public void signIn_shouldReturnForbiddenWhenCredentialsNotMatch() throws Exception {
+    void signIn_shouldReturnForbiddenWhenCredentialsNotMatch() throws Exception {
         signUpRequest.setUsername("baduser");
         signUpRequest.setEmail("badlogin@user.ru");
 
@@ -118,7 +118,7 @@ public class AuthControllerIntegrationTest {
     }
 
     @Test
-    public void signIn_shouldReturnBadRequestOnLoginWhenPasswordIsShorterThan8() throws Exception {
+    void signIn_shouldReturnBadRequestOnLoginWhenPasswordIsShorterThan8() throws Exception {
         signInRequest.setPassword("123");
 
         mockMvc.perform(post("/auth/login")

@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class AuthenticationServiceTest {
+class AuthenticationServiceTest {
 
     @InjectMocks
     private AuthenticationServiceImpl authenticationService;
@@ -37,7 +37,7 @@ public class AuthenticationServiceTest {
     private AuthenticationManager authenticationManager;
 
     @Test
-    public void signUp_ShouldReturnJwtToken() {
+    void signUp_ShouldReturnJwtToken() {
         SignUpRequest request = new SignUpRequest("testuser", "password123", "test@test.ru", "John", "Doe");
 
         when(passwordEncoder.encode("password123")).thenReturn("encodedPassword");
@@ -54,7 +54,7 @@ public class AuthenticationServiceTest {
     }
 
     @Test
-    public void signIn_ShouldReturnJwtToken() {
+    void signIn_ShouldReturnJwtToken() {
         SignInRequest request = new SignInRequest("testuser", "password123");
         User user = new User();
         user.setUsername("testuser");

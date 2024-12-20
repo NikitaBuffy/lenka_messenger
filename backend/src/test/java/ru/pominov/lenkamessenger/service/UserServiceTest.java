@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class UserServiceTest {
+class UserServiceTest {
 
     @InjectMocks
     private UserServiceImpl userServiceMock;
@@ -36,13 +36,13 @@ public class UserServiceTest {
     User user = new User(null, "testuser123", "password123", "test@test.ru", "John", "Doe", Role.ROLE_USER);
 
     @Test
-    public void create_ShouldCreateUser() {
+    void create_ShouldCreateUser() {
         User createdUser = userService.create(user);
         assertEquals(1, createdUser.getId());
     }
 
     @Test
-    public void create_shouldThrowExceptionWhenUsernameNotUnique() {
+    void create_shouldThrowExceptionWhenUsernameNotUnique() {
         when(userRepository.existsByUsername(user.getUsername())).thenReturn(true);
 
         assertThrows(BadRequestException.class, () -> userServiceMock.create(user));
@@ -51,7 +51,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void create_shouldThrowExceptionWhenEmailNotUnique() {
+    void create_shouldThrowExceptionWhenEmailNotUnique() {
         when(userRepository.existsByEmail(user.getEmail())).thenReturn(true);
 
         assertThrows(BadRequestException.class, () -> userServiceMock.create(user));
@@ -60,7 +60,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void getByUsername_shouldReturnUser() {
+    void getByUsername_shouldReturnUser() {
         user.setUsername("newtest");
         user.setEmail("email@email.ru");
 
@@ -73,12 +73,12 @@ public class UserServiceTest {
     }
 
     @Test
-    public void getByUsername_shouldThrowUsernameNotFoundException() {
+    void getByUsername_shouldThrowUsernameNotFoundException() {
         assertThrows(UsernameNotFoundException.class, () -> userService.getByUsername("unknown"));
     }
 
     @Test
-    public void getCurrentUser_shouldReturnAuthenticatedUser() {
+    void getCurrentUser_shouldReturnAuthenticatedUser() {
         var authentication = mock(Authentication.class);
         when(authentication.getName()).thenReturn("authuser");
 
