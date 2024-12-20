@@ -26,5 +26,8 @@ public class JwtServiceTest {
         assertNotNull(token);
         assertEquals("testuser123", jwtService.extractUsername(token));
         assertTrue(jwtService.isTokenValid(token, user));
+
+        user.setUsername("anotheruser");
+        assertFalse(jwtService.isTokenValid(token, user));
     }
 }
