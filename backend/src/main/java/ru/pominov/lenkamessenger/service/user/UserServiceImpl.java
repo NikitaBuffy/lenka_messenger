@@ -24,10 +24,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
-            throw new BadRequestException("Пользователь с логином " + user.getUsername() + " уже существует");
+            throw new BadRequestException("User with username - " + user.getUsername() + " already exists");
         }
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new BadRequestException("Пользователь с почтой " + user.getEmail() + " уже существует");
+            throw new BadRequestException("User with email - " + user.getEmail() + " already exists");
         }
         User createdUser = userRepository.save(user);
         log.info("Saved new user with ID: {}", createdUser.getId());
