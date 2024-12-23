@@ -1,19 +1,36 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import AuthService from '@src/services/AuthService';
 
 import Button from "@src/components/ui/inputs/Button.vue";
 import LabeledTextInput from "@src/components/ui/inputs/LabeledTextInput.vue";
 import PasswordInput from "@src/components/ui/inputs/PasswordInput.vue";
 
+const router = useRouter();
+
 const password = ref("");
 const login = ref("");
 const errorMessage = ref("");
 
-const handleLogin = () => {
+const handleLogin = async () => {
   if (!password.value || !login.value) {
     errorMessage.value = "Пожалуйста, заполните все поля";
   } else {
     errorMessage.value = "";
+    try {
+      const requestData = {
+        username: login.value,
+        password: password.value,
+      };
+      const response = await AuthService.login(requestData);
+      const token = response.token;
+      localStorage.setItem("authToken", token);
+      router.push('/');
+    } catch (error: any) {
+      // TODO Заменить alert и сделать вывод ошибки в UI
+      alert(error.message);
+    }
   }
 }
 

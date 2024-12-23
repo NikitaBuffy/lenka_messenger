@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
+import { useRouter } from "vue-router";
+import AuthService from '@src/services/AuthService';
 
 import PasswordInput from "@src/components/ui/inputs/PasswordInput.vue";
 import Button from "@src/components/ui/inputs/Button.vue";
+
+const router = useRouter();
 
 const props = defineProps<{
   regData: {
@@ -27,6 +31,18 @@ const handlePasswordBlur = () => {
 const confirmPasswordEntered = ref(false);
 const handleConfirmPasswordBlur = () => {
   confirmPasswordEntered.value = true;
+}
+
+const handleRegister = async () => {
+  try {
+    const response = await AuthService.register(props.regData);
+    const token = response.token;
+    localStorage.setItem("authToken", token);
+    router.push('/');
+  } catch (error: any) {
+    // TODO Заменить alert и сделать вывод ошибки в UI
+    alert(error.message);
+  }
 }
 </script>
 
@@ -67,7 +83,11 @@ const handleConfirmPasswordBlur = () => {
 
     <!--controls-->
     <div class="mb-6">
-      <Button class="contained-primary contained-text w-full mb-4" :disabled="!(passwordMatch && passwordsEntered && passwordLengthValid)">
+      <Button
+          class="contained-primary contained-text w-full mb-4"
+          :disabled="!(passwordMatch && passwordsEntered && passwordLengthValid)"
+          @click="handleRegister"
+      >
         Зарегистрироваться
       </Button>
       <Button
