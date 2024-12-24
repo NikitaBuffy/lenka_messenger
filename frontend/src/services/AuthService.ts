@@ -1,25 +1,25 @@
 import axios from "axios";
 
 class AuthService {
-  async register(requestData) {
+  async register(requestData: object) {
     try {
       const response = await axios.post('/auth/register', requestData);
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       this.handleError(error);
     }
   }
 
-  async login(requestData) {
+  async login(requestData: object) {
     try {
       const response = await axios.post('/auth/login', requestData);
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       this.handleError(error);
     }
   }
 
-  handleError(error) {
+  handleError(error: any) {
     if (error.response) {
       throw error;
     } else if (error.request) {
