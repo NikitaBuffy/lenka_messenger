@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import AuthService from '@src/services/AuthService';
+  import { sleep } from "@src/utils";
 
+import AuthService from '@src/services/AuthService';
 import Button from "@src/components/ui/inputs/Button.vue";
 import LabeledTextInput from "@src/components/ui/inputs/LabeledTextInput.vue";
 import PasswordInput from "@src/components/ui/inputs/PasswordInput.vue";
@@ -12,30 +13,62 @@ const router = useRouter();
 const password = ref("");
 const login = ref("");
 const errorMessage = ref("");
+const passwordError = ref(false);
+const loginError = ref(false);
+const isLoading = ref(false);
 
 const handleLogin = async () => {
+  errorMessage.value = "";
+
   if (!password.value || !login.value) {
     errorMessage.value = "Пожалуйста, заполните все поля";
-  } else {
-    errorMessage.value = "";
-    try {
-      const requestData = {
-        username: login.value,
-        password: password.value,
-      };
-      const response = await AuthService.login(requestData);
-      const token = response.token;
-      localStorage.setItem("authToken", token);
-      router.push('/');
-    } catch (error: any) {
-      // TODO Заменить alert и сделать вывод ошибки в UI
-      alert(error.message);
+    return;
+  }
+
+  if (password.value.length < 8) {
+    errorMessage.value = "Размер пароля должен превышать 8 символов";
+    passwordError.value = true;
+    return;
+  }
+
+  try {
+    isLoading.value = true;
+    const requestData = {
+      username: login.value,
+      password: password.value,
+    };
+
+    await sleep(800);
+
+    const response = await AuthService.login(requestData);
+    const token = response.token;
+    localStorage.setItem("authToken", token);
+    router.push('/');
+  } catch (error: any) {
+    let message;
+
+    if (error.response) {
+      if (error.response.status === 403) {
+        message = "Неверный логин или пароль";
+        passwordError.value = true;
+        loginError.value = true;
+      } else {
+        message = error.response.data?.message || "Произошла ошибка на сервере";
+      }
+    } else {
+      message = error.message;
     }
+
+    errorMessage.value = message;
+  } finally {
+    isLoading.value = false;
   }
 }
 
 const clearError = () => {
   errorMessage.value = "";
+  passwordError.value = false;
+  loginError.value = false;
 }
 </script>
 
@@ -63,7 +96,8 @@ const clearError = () => {
           :value="login"
           label="Логин"
           placeholder="Введите свой логин"
-          class="mb-5"
+          :class="loginError ? 'error-input' : ''"
+          class="mb-5 rounded-sm focus:border-red-200"
         />
         <PasswordInput
           @value-changed="(value) => { password = value }"
@@ -71,6 +105,8 @@ const clearError = () => {
           :value="password"
           label="Пароль"
           placeholder="Введите свой пароль"
+          :class="passwordError ? 'error-input' : ''"
+          class="rounded-sm focus:border-red-200"
         />
 
         <!-- error message -->
@@ -81,7 +117,7 @@ const clearError = () => {
 
       <!--auth button-->
       <div class="mb-6">
-        <Button class="contained-primary contained-text w-full mb-4" @click="handleLogin" link to="/">
+        <Button :loading="isLoading" class="contained-primary contained-text w-full mb-4" @click="handleLogin" link to="/">
           Войти
         </Button>
       </div>

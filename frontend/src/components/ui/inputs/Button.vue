@@ -40,7 +40,7 @@ const props = defineProps<{
     </svg>
 
     <!--loading text-->
-    <template v-if="props.loading"> Загрузка </template>
+    <template v-if="props.loading"></template>
 
     <!--text-->
     <template v-else>

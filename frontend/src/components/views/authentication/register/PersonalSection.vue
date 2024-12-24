@@ -20,9 +20,12 @@ const loginError = ref(false);
 const emailError = ref(false);
 
 const handleLoginInput = () => {
-  // change it after backend is completed
+  // TODO change it after backend is completed
   if (props.regData.username === 'hello') {
     errorMessage.value = "Имя пользователя уже существует";
+    loginError.value = true;
+  } else if (props.regData.username.length < 5) {
+    errorMessage.value = "Имя пользователя должно быть не менее 5 символов";
     loginError.value = true;
   } else {
     errorMessage.value = "";

@@ -21,9 +21,9 @@ class AuthService {
 
   handleError(error) {
     if (error.response) {
-      throw new Error(error.response.data?.message || "Произошла ошибка на сервере");
+      throw error;
     } else if (error.request) {
-      throw new Error("Сервер недоступен. Проверьте подключение к интернету.");
+      throw new Error("Сервер недоступен. Проверьте подключение к интернету");
     } else {
       throw new Error("Произошла неизвестная ошибка");
     }
